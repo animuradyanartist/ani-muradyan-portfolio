@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ani Muradyan — Contemporary Artist</title>
+  <meta name="description" content="Ani Muradyan is a contemporary artist painting the quiet dialogue between the world outside and the world within — portraits, figures and landscapes." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Ani Muradyan — Contemporary Artist" />
+  <meta property="og:description" content="Painting the quiet dialogue between the world outside and the world within." />
+  <meta property="og:image" content="assets/art-observer.jpg" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&family=Kaushan+Script&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- grain / paper texture overlay -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- scroll progress -->
+  <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+
+  <!-- custom cursor -->
+  <div class="cursor" id="cursor" aria-hidden="true"><span class="cursor__label">view</span></div>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav" id="nav">
+    <a href="#hero" class="nav__brand" data-cursor>
+      <span class="nav__mark">AM</span>
+      <span class="nav__name">Ani Muradyan</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#about" data-cursor>About</a>
+      <a href="#art" data-cursor>Art</a>
+      <a href="#exhibitions" data-cursor>Exhibitions</a>
+      <a href="#connect" class="nav__cta" data-cursor>Let's connect</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" id="hero">
+      <!-- soft drifting wash, no orange ring -->
+      <div class="blob blob--orange" data-speed="-3" aria-hidden="true"></div>
+      <div class="blob blob--blue" data-speed="4" aria-hidden="true"></div>
+
+      <div class="hero__inner">
+        <!-- LEFT: portrait in a tall editorial frame -->
+        <figure class="hero__portrait">
+          <!-- organic paint smear behind the portrait -->
+          <svg class="hero__smear" viewBox="0 0 600 720" aria-hidden="true" focusable="false">
+            <defs>
+              <radialGradient id="smear-g" cx="50%" cy="42%" r="62%">
+                <stop offset="0%" stop-color="#f59007" stop-opacity=".55" />
+                <stop offset="55%" stop-color="#f59007" stop-opacity=".18" />
+                <stop offset="100%" stop-color="#f59007" stop-opacity="0" />
+              </radialGradient>
+            </defs>
+            <path fill="url(#smear-g)" d="M312,40c98,4 196,68 218,170c20,93 -38,179 -54,272c-18,107 22,205 -78,224c-100,18 -252,-44 -298,-148c-44,-100 12,-227 32,-336c20,-110 82,-186 180,-182Z"/>
+          </svg>
+
+          <div class="hero__portrait-frame">
+            <img src="assets/about.jpg" alt="Ani Muradyan painting in her studio" width="667" height="1000" />
+          </div>
+
+          <figcaption class="hero__caption">
+            <span class="hero__caption-k">In the studio</span>
+            <span class="hero__caption-v">Yerevan · 2024</span>
+          </figcaption>
+        </figure>
+
+        <!-- RIGHT: editorial type column -->
+        <div class="hero__copy">
+          <p class="hero__eyebrow">
+            <span class="hero__rule" aria-hidden="true"></span>
+            <span>Contemporary painter · Yerevan, Armenia · Working in oil</span>
+          </p>
+
+          <h1 class="hero__title" aria-label="Ani Muradyan">
+            <span class="hero__title-line hero__title-line--a">
+              <span class="char">A</span><span class="char">n</span><span class="char">i</span>
+            </span>
+            <span class="hero__title-line hero__title-line--b">
+              <span class="char">M</span><span class="char">u</span><span class="char">r</span><span class="char">a</span><span class="char">d</span><span class="char">y</span><span class="char">a</span><span class="char">n</span>
+            </span>
+          </h1>
+
+          <p class="hero__quote">
+            &ldquo;I paint the quiet dialogue between the world outside and the world within.&rdquo;
+          </p>
+
+          <div class="hero__ctas">
+            <a href="#art" class="btn btn--primary" data-cursor>
+              <span>View works</span>
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="https://www.singulart.com/en/artist/ani-muradyan-62448?ref=ts" target="_blank" rel="noopener" class="btn btn--ghost" data-cursor>
+              <span>Available on Singulart</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M9 7h8v8"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- NOW SHOWING strip -->
+      <a href="#exhibitions" class="hero__now" data-cursor>
+        <span class="hero__now-k">Now showing · 2026</span>
+        <span class="hero__now-t">WOMAN: LOVE: HARMONY</span>
+        <span class="hero__now-p">Yerevan, Armenia</span>
+        <span class="hero__now-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a href="#about" class="hero__scroll" data-cursor aria-label="Scroll to explore">
+        <span class="hero__scroll-line" aria-hidden="true"></span>
+        <span>Scroll</span>
+      </a>
+    </section>
+
+    <!-- ===================== MARQUEE ===================== -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Portraits</span><i>✶</i><span>Figures</span><i>✶</i><span>Landscapes</span><i>✶</i><span>Abstraction</span><i>✶</i>
+        <span>Portraits</span><i>✶</i><span>Figures</span><i>✶</i><span>Landscapes</span><i>✶</i><span>Abstraction</span><i>✶</i>
+      </div>
+    </div>
+
+    <!-- ===================== MY ART ===================== -->
+    <section class="art" id="art">
+      <header class="art__head">
+        <h2 class="script-heading script-heading--xl reveal">My art</h2>
+        <p class="art__sub reveal">Selected series — the painting, and the painting at home.</p>
+      </header>
+
+      <!-- series template repeated -->
+      <article class="series" data-index="01">
+        <div class="series__media reveal" data-reveal="left">
+          <figure class="series__paint" data-cursor>
+            <img src="assets/art-blue-detachment.jpg" alt="Blue Detachment — portrait painting by Ani Muradyan" loading="lazy" />
+          </figure>
+        </div>
+        <div class="series__media reveal" data-reveal="right">
+          <figure class="series__room" data-cursor>
+            <img src="assets/room-blue-detachment.jpg" alt="Blue Detachment displayed in an interior" loading="lazy" data-parallax data-speed="1.5" />
+          </figure>
+        </div>
+        <div class="series__label">
+          <span class="series__no">01</span>
+          <h3 class="script-heading script-heading--sm reveal">Blue Detachment</h3>
+          <p class="series__meta reveal">Oil on canvas · 80 × 90 cm · 2026</p>
+        </div>
+      </article>
+
+      <article class="series series--alt" data-index="02">
+        <div class="series__media reveal" data-reveal="left">
+          <figure class="series__paint" data-cursor>
+            <img src="assets/art-observer.jpg" alt="Observer — portrait painting by Ani Muradyan" loading="lazy" />
+          </figure>
+        </div>
+        <div class="series__media reveal" data-reveal="right">
+          <figure class="series__room" data-cursor>
+            <img src="assets/room-observer.jpg" alt="Observer displayed in an interior" loading="lazy" data-parallax data-speed="1.5" />
+          </figure>
+        </div>
+        <div class="series__label">
+          <span class="series__no">02</span>
+          <h3 class="script-heading script-heading--sm reveal">Observer</h3>
+          <p class="series__meta reveal">Oil on canvas · 80 × 100 cm · 2025</p>
+        </div>
+      </article>
+
+      <article class="series" data-index="03">
+        <div class="series__media reveal" data-reveal="left">
+          <figure class="series__paint" data-cursor>
+            <img src="assets/art-inner-direction.jpg" alt="Inner Direction — portrait painting by Ani Muradyan" loading="lazy" />
+          </figure>
+        </div>
+        <div class="series__media reveal" data-reveal="right">
+          <figure class="series__room" data-cursor>
+            <img src="assets/room-inner-direction.jpg" alt="Inner Direction displayed in an interior" loading="lazy" data-parallax data-speed="1.5" />
+          </figure>
+        </div>
+        <div class="series__label">
+          <span class="series__no">03</span>
+          <h3 class="script-heading script-heading--sm reveal">Inner Direction</h3>
+          <p class="series__meta reveal">Oil on canvas · 80 × 100 cm · 2025</p>
+        </div>
+      </article>
+
+      <article class="series series--alt" data-index="04">
+        <div class="series__media reveal" data-reveal="left">
+          <figure class="series__paint" data-cursor>
+            <img src="assets/art-silent-bliss.jpg" alt="Silent Bliss — portrait painting by Ani Muradyan" loading="lazy" />
+          </figure>
+        </div>
+        <div class="series__media reveal" data-reveal="right">
+          <figure class="series__room" data-cursor>
+            <img src="assets/room-silent-bliss.jpg" alt="Silent Bliss displayed in an interior" loading="lazy" data-parallax data-speed="1.5" />
+          </figure>
+        </div>
+        <div class="series__label">
+          <span class="series__no">04</span>
+          <h3 class="script-heading script-heading--sm reveal">Silent Bliss</h3>
+          <p class="series__meta reveal">Oil on canvas · 80 × 100 cm · 2024</p>
+        </div>
+      </article>
+
+      <article class="series" data-index="05">
+        <div class="series__media reveal" data-reveal="left">
+          <figure class="series__paint" data-cursor>
+            <img src="assets/art-rebirth.jpg" alt="Rebirth — portrait painting by Ani Muradyan" loading="lazy" />
+          </figure>
+        </div>
+        <div class="series__media reveal" data-reveal="right">
+          <figure class="series__room" data-cursor>
+            <img src="assets/room-rebirth.jpg" alt="Rebirth displayed in an interior" loading="lazy" data-parallax data-speed="1.5" />
+          </figure>
+        </div>
+        <div class="series__label">
+          <span class="series__no">05</span>
+          <h3 class="script-heading script-heading--sm reveal">Rebirth</h3>
+          <p class="series__meta reveal">Oil on canvas · 60 × 70 cm · 2026</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ===================== ABOUT ===================== -->
+    <section class="about" id="about">
+      <div class="about__inner">
+        <p class="about__kicker reveal">The artist</p>
+        <h2 class="script-heading script-heading--xl reveal">About me</h2>
+        <div class="about__body">
+          <p class="about__lede reveal">I paint the quiet dialogue between the world outside and the world within.</p>
+          <p class="reveal">In <strong>portraits</strong> and figures, I seek the essence of human presence — capturing emotion, character, and the silent stories behind every face.</p>
+          <p class="reveal">In <strong>landscapes</strong>, I explore nature as a reflection of lived moments, where light, space, and memory meet.</p>
+          <p class="reveal">Across nature, people, and abstraction, my work is a journey — an exploration of connection, emotion, and the poetry that exists between reality and imagination.</p>
+          <p class="about__pull reveal">&ldquo;Painting, for me, is not only an act of creation. It is a way of listening to life.&rdquo;</p>
+          <p class="about__sig reveal">— Ani Muradyan</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== EXHIBITIONS ===================== -->
+    <section class="exhibitions" id="exhibitions">
+      <h2 class="script-heading script-heading--xl reveal">Exhibition Highlights</h2>
+      <div class="exhibitions__grid">
+        <ul class="exh-list">
+          <li class="exh reveal">
+            <span class="exh__year">2022</span>
+            <h3 class="exh__title">Art 3f / Expo</h3>
+            <p class="exh__place">Porte de Versailles · Paris, France</p>
+          </li>
+          <li class="exh reveal">
+            <span class="exh__year">2022</span>
+            <h3 class="exh__title">Christmas Art Fair</h3>
+            <p class="exh__place">Artists Union of Armenia · Yerevan, Armenia</p>
+          </li>
+          <li class="exh reveal">
+            <span class="exh__year">2023</span>
+            <h3 class="exh__title">Art of Nobility</h3>
+            <p class="exh__place">Gaudi Gallery · Madrid, Spain</p>
+          </li>
+          <li class="exh reveal">
+            <span class="exh__year">2023</span>
+            <h3 class="exh__title">SELECT ART '23</h3>
+            <p class="exh__place">World of Crete · Thessaloniki, Greece</p>
+          </li>
+        </ul>
+        <ul class="exh-list">
+          <li class="exh reveal">
+            <span class="exh__year">2024</span>
+            <h3 class="exh__title">Christmas Art Exhibition</h3>
+            <p class="exh__place">Artists Union of Armenia · Yerevan, Armenia</p>
+          </li>
+          <li class="exh reveal">
+            <span class="exh__year">2024</span>
+            <h3 class="exh__title">Solo Exhibition</h3>
+            <p class="exh__place">Pyunik Development Center · Yerevan, Armenia</p>
+          </li>
+          <li class="exh reveal">
+            <span class="exh__year">2025</span>
+            <h3 class="exh__title">Art Embassy Gallery</h3>
+            <p class="exh__place">Yerevan, Armenia</p>
+          </li>
+          <li class="exh reveal">
+            <span class="exh__year">2026</span>
+            <h3 class="exh__title">WOMAN: LOVE: HARMONY</h3>
+            <p class="exh__place">Yerevan, Armenia</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================== CONNECT ===================== -->
+    <section class="connect" id="connect">
+      <div class="connect__bg" aria-hidden="true"></div>
+      <div class="connect__inner">
+        <div class="connect__lead">
+          <h2 class="script-heading script-heading--xl reveal">Let's Connect</h2>
+          <p class="connect__tag reveal">Commissions, exhibitions &amp; original works — always open to a conversation.</p>
+        </div>
+
+        <ul class="connect__list">
+          <li class="connect__item reveal">
+            <span class="connect__k">Email</span>
+            <a href="mailto:animuradyan.artist@gmail.com" class="connect__v" data-cursor>animuradyan.artist@gmail.com</a>
+          </li>
+          <li class="connect__item reveal">
+            <span class="connect__k">Instagram</span>
+            <a href="https://www.instagram.com/animoria.art/" target="_blank" rel="noopener" class="connect__v" data-cursor>@animoria.art</a>
+          </li>
+          <li class="connect__item reveal">
+            <span class="connect__k">Singulart</span>
+            <a href="https://www.singulart.com/en/artist/ani-muradyan-62448?ref=ts" target="_blank" rel="noopener" class="connect__v" data-cursor>Ani Muradyan</a>
+          </li>
+          <li class="connect__item reveal">
+            <span class="connect__k">Website</span>
+            <a href="http://animuradyan.com/" target="_blank" rel="noopener" class="connect__v" data-cursor>animuradyan.com</a>
+          </li>
+        </ul>
+      </div>
+
+      <footer class="foot">
+        <span class="foot__name t-orange">Ani Muradyan</span>
+        <span class="foot__copy">© <span id="year"></span> — Contemporary Artist · Yerevan</span>
+      </footer>
+    </section>
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
