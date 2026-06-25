@@ -244,25 +244,7 @@ a{color:inherit;text-decoration:none}
 .btn--ghost{background:transparent;color:var(--ink);border:1.5px solid rgba(12,21,34,.25)}
 .btn--ghost:hover{border-color:var(--ink);color:var(--ink)}
 
-/* ---- NOW SHOWING strip ---- */
-.hero__now{
-  position:relative;z-index:2;
-  width:100%;max-width:var(--maxw);margin:0 auto;padding:18px calc(var(--gutter) + 64px) 56px var(--gutter);
-  display:grid;grid-template-columns:auto 1fr auto auto;gap:20px;align-items:center;
-  color:var(--ink);
-  border-top:1px solid rgba(12,21,34,.12);
-  opacity:0;transform:translateY(10px);
-  animation:fadeUp .8s var(--ease-out) 1.5s forwards;
-  transition:color .3s var(--ease);
-}
-.hero__now:hover{color:var(--orange)}
-.hero__now-k{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;white-space:nowrap}
-.hero__now-t{font-family:var(--font-display);font-style:italic;font-weight:400;font-size:clamp(1rem,1.4vw,1.25rem);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.hero__now-p{font-size:.85rem;color:var(--ink-soft);font-weight:400;white-space:nowrap}
-.hero__now-arrow{display:inline-flex;transition:transform .35s var(--ease)}
-.hero__now:hover .hero__now-arrow{transform:translateX(4px)}
-
-/* ---- scroll cue (right edge of now-strip) ---- */
+/* ---- scroll cue (right edge of hero) ---- */
 .hero__scroll{
   position:absolute;right:var(--gutter);bottom:18px;z-index:4;
   display:inline-flex;align-items:center;gap:10px;
@@ -485,8 +467,6 @@ a{color:inherit;text-decoration:none}
   .hero__quote{max-width:none}
   .hero__ctas{flex-direction:column;align-items:stretch}
   .hero__ctas .btn{justify-content:center;width:100%}
-  .hero__now{grid-template-columns:1fr;gap:6px;padding:18px var(--gutter) 26px}
-  .hero__now-arrow{display:none}
   .hero__scroll{display:none}
   .series__label{flex-wrap:wrap}
   .series__meta{margin-left:0;flex-basis:100%}
