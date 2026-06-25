@@ -6,7 +6,6 @@
   "use strict";
 
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const isTouch = window.matchMedia("(hover: none)").matches;
 
   /* ---------- current year ---------- */
   const yearEl = document.getElementById("year");
@@ -71,40 +70,6 @@
   window.addEventListener("scroll", requestFrame, { passive: true });
   window.addEventListener("resize", requestFrame, { passive: true });
   frame();
-
-  /* ---------- custom cursor ---------- */
-  const cursor = document.getElementById("cursor");
-  if (cursor && !isTouch && !prefersReduced) {
-    cursor.style.display = "block";
-    let cx = window.innerWidth / 2,
-      cy = window.innerHeight / 2,
-      tx = cx,
-      ty = cy;
-
-    window.addEventListener("pointermove", (e) => {
-      tx = e.clientX;
-      ty = e.clientY;
-    });
-    window.addEventListener("pointerdown", () => cursor.classList.add("is-down"));
-    window.addEventListener("pointerup", () => cursor.classList.remove("is-down"));
-
-    (function loop() {
-      cx += (tx - cx) * 0.18;
-      cy += (ty - cy) * 0.18;
-      cursor.style.left = cx + "px";
-      cursor.style.top = cy + "px";
-      requestAnimationFrame(loop);
-    })();
-
-    document.querySelectorAll("[data-cursor]").forEach((el) => {
-      const isImage = el.matches(".series__paint, .series__room");
-      el.addEventListener("pointerenter", () => {
-        cursor.classList.add("is-hover");
-        cursor.querySelector(".cursor__label").style.opacity = isImage ? "1" : "0";
-      });
-      el.addEventListener("pointerleave", () => cursor.classList.remove("is-hover"));
-    });
-  }
 
   /* ---------- smooth anchor scrolling (with header offset) ---------- */
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
