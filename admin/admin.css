@@ -104,6 +104,21 @@ h1, h2, h3, h4 { margin: 0; font-weight: 600; }
 .save-state { font-size: 12px; color: var(--ink-soft); }
 .save-state.is-dirty { color: var(--amber); font-weight: 500; }
 
+/* On a phone the bar wraps to two rows instead of squeezing the buttons. */
+@media (max-width: 640px) {
+  .topbar {
+    flex-wrap: wrap;
+    padding: 12px 16px;
+    gap: 10px;
+  }
+
+  .topbar__sub { display: none; }
+  .topbar__actions { width: 100%; justify-content: space-between; }
+  .topbar .btn { white-space: nowrap; }
+  .tabs { padding: 12px 16px 0; }
+  .panels { padding: 16px 16px 96px; }
+}
+
 /* ------------------------------------------------------------------- tabs */
 
 .tabs {
@@ -134,6 +149,9 @@ h1, h2, h3, h4 { margin: 0; font-weight: 600; }
 
 .panels { padding: 20px 24px 96px; }
 .panel { max-width: 1180px; margin: 0 auto; }
+
+/* the artworks overview earns more width — it is a table of seven columns */
+#panel-artworks { max-width: 1500px; }
 
 .section {
   background: var(--card);
@@ -201,6 +219,157 @@ h1, h2, h3, h4 { margin: 0; font-weight: 600; }
 .list-item__body { min-width: 0; flex: 1; }
 .list-item__title { margin: 0; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .list-item__meta { margin: 0; font-size: 12px; color: var(--ink-soft); }
+
+/* --------------------------------------------------- artworks overview */
+
+/* One row per work, showing everything that has been saved about it, so the
+   list answers "what state is this piece in?" without opening the editor.
+   Columns on a wide screen; stacked, labelled cards below 1180px. */
+.aw-table {
+  --aw-cols: minmax(200px, 1.5fr) minmax(140px, 1.05fr) minmax(125px, 0.95fr)
+    minmax(155px, 1.15fr) minmax(140px, 1.05fr) minmax(145px, 1fr) auto;
+}
+
+.aw-head {
+  display: grid;
+  grid-template-columns: var(--aw-cols);
+  gap: 16px;
+  padding: 0 12px 8px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.aw-row {
+  display: grid;
+  grid-template-columns: var(--aw-cols);
+  gap: 16px;
+  align-items: start;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  margin-bottom: 8px;
+  background: var(--card);
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.aw-row:hover {
+  border-color: #cdc7bc;
+}
+
+.aw-row.is-active {
+  border-color: var(--ink);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.aw-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.aw-work {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.aw-work__text {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.aw-thumb {
+  width: 46px;
+  height: 46px;
+  border-radius: 9px;
+  object-fit: cover;
+  background: var(--sand);
+  flex: none;
+}
+
+.aw-title {
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.aw-line {
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.aw-line--muted { color: var(--ink-soft); }
+.aw-line--warn { color: var(--amber); }
+
+.aw-sub {
+  font-size: 12px;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+.aw-sub--ok { color: var(--green); }
+.aw-sub--off { color: var(--amber); }
+
+.aw-actions {
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* status badges */
+.badge {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.badge--available { background: var(--green-soft); color: var(--green); }
+.badge--reserved { background: var(--accent-soft); color: var(--amber); }
+.badge--sold { background: #efe9e4; color: var(--ink-soft); }
+.badge--not_for_sale { background: var(--sand); color: var(--ink-soft); }
+.badge--included { background: #e9f0f7; color: var(--blue); }
+.badge--muted { background: var(--sand); color: var(--ink-soft); }
+.badge--soft { background: var(--paper); border: 1px solid var(--line); color: var(--ink-soft); }
+
+@media (max-width: 1180px) {
+  .aw-head { display: none; }
+
+  .aw-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .aw-cell[data-label]::before {
+    content: attr(data-label);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 2px;
+  }
+
+  .aw-cell[data-label] {
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+  }
+
+  .aw-actions {
+    align-items: stretch;
+    padding-top: 4px;
+  }
+
+  .aw-actions .btn { width: 100%; }
+}
 
 /* ------------------------------------------------------------------ forms */
 

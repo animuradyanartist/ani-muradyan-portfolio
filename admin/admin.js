@@ -146,41 +146,116 @@ function missingForGallery(artwork) {
   return missing;
 }
 
+/* --- the overview row: everything saved about a work, at a glance --- */
+
+const money = (amount) => `€${Number(amount).toLocaleString("en-GB")}`;
+
+/** "Exhibited · 2 exhibitions" / "Not exhibited" */
+function exhibitionSummary(artwork) {
+  const count = artwork.previouslyExhibited ? artwork.exhibitionHistory.length : 0;
+  if (!count) return { text: "Not exhibited", tone: "muted" };
+  return { text: `Exhibited · ${count} exhibition${count === 1 ? "" : "s"}`, tone: "plain" };
+}
+
+/** "No commitment" / "Reserved" / "Gallery commitment" */
+function commitmentSummary(artwork) {
+  if (!artwork.hasCommitment || !artwork.commitment.type) {
+    return { text: "No commitment", tone: "muted" };
+  }
+  const label = labelOf(COMMITMENT_TYPES, artwork.commitment.type);
+  if (artwork.commitment.type === "reserved") return { text: "Reserved", tone: "warn" };
+  return { text: `${label} commitment`, tone: "warn" };
+}
+
+function artworkRow(artwork, index, active) {
+  const exhibition = exhibitionSummary(artwork);
+  const commitment = commitmentSummary(artwork);
+  const dimensions = artwork.widthCm && artwork.heightCm ? `${artwork.widthCm} × ${artwork.heightCm} cm` : "";
+
+  return `
+      <div class="aw-row ${active ? "is-active" : ""}" data-action="select-artwork" data-index="${index}">
+        <div class="aw-cell aw-work">
+          ${artwork.mainImage ? `<img class="aw-thumb" src="${esc(artwork.mainImage)}" alt="" loading="lazy" />` : '<span class="aw-thumb"></span>'}
+          <span class="aw-work__text">
+            <span class="aw-title">${esc(artwork.title || "Untitled")}</span>
+            <span class="aw-sub">${esc(artwork.year || "—")}</span>
+          </span>
+        </div>
+
+        <div class="aw-cell" data-label="Details">
+          <span class="aw-line">${esc(artwork.medium || "—")}</span>
+          <span class="aw-sub">${esc(dimensions || "No dimensions")}</span>
+          <span class="badge badge--soft">${esc(labelOf(CATEGORIES, artwork.category))}</span>
+        </div>
+
+        <div class="aw-cell" data-label="Availability">
+          <span class="badge badge--${esc(artwork.availability)}">${esc(labelOf(AVAILABILITY, artwork.availability))}</span>
+          <span class="aw-sub">${esc(artwork.currentLocation || "No location")}</span>
+        </div>
+
+        <div class="aw-cell" data-label="Price">
+          ${
+            artwork.artistPrice
+              ? `<span class="aw-line">Artist price ${money(artwork.artistPrice)}</span>`
+              : '<span class="aw-sub">No artist price</span>'
+          }
+          ${artwork.retailPrice ? `<span class="aw-sub">Retail ${money(artwork.retailPrice)}</span>` : ""}
+          <span class="aw-sub ${artwork.showPriceInCommercial ? "aw-sub--ok" : "aw-sub--off"}">
+            Commercial price: ${artwork.showPriceInCommercial ? "shown" : "hidden"}
+          </span>
+        </div>
+
+        <div class="aw-cell" data-label="History">
+          <span class="aw-line aw-line--${exhibition.tone}">${esc(exhibition.text)}</span>
+          <span class="aw-line aw-line--${commitment.tone}">${esc(commitment.text)}</span>
+        </div>
+
+        <div class="aw-cell" data-label="Portfolio">
+          ${
+            artwork.includeInCommercial
+              ? '<span class="badge badge--included">Commercial Portfolio ✓</span>'
+              : '<span class="badge badge--muted">Not selected</span>'
+          }
+          ${artwork.featured ? '<span class="aw-sub aw-sub--ok">★ Featured</span>' : ""}
+        </div>
+
+        <div class="aw-cell aw-actions">
+          <button class="btn btn--small" type="button" data-action="select-artwork" data-index="${index}">Edit</button>
+        </div>
+      </div>`;
+}
+
 function renderArtworks() {
   const { artworks } = state.content;
   const index = Math.min(state.artworkIndex, Math.max(artworks.length - 1, 0));
   state.artworkIndex = index;
   const artwork = artworks[index];
 
-  const list = artworks
-    .map(
-      (a, i) => `
-      <button class="list-item ${i === index ? "is-active" : ""}" type="button" data-action="select-artwork" data-index="${i}">
-        ${a.mainImage ? `<img class="list-item__thumb" src="${esc(a.mainImage)}" alt="" />` : `<span class="list-item__thumb"></span>`}
-        <span class="list-item__body">
-          <span class="list-item__title">${esc(a.title || "Untitled")}</span>
-          <span class="list-item__meta">${esc(a.year || "")} · ${esc(labelOf(CATEGORIES, a.category))} · ${esc(labelOf(AVAILABILITY, a.availability))}</span>
-        </span>
-        ${a.includeInCommercial ? '<span class="pill pill--included">In portfolio</span>' : ""}
-      </button>`
-    )
-    .join("");
+  const rows = artworks.map((a, i) => artworkRow(a, i, i === index)).join("");
 
   $("#panel-artworks").innerHTML = `
-    <div class="split">
       <div class="section">
         <div class="section__head">
           <div>
             <h2 class="section__title">Artworks</h2>
-            <p class="section__hint">${artworks.length} work${artworks.length === 1 ? "" : "s"}</p>
+            <p class="section__hint">${artworks.length} work${artworks.length === 1 ? "" : "s"} · everything saved, at a glance</p>
           </div>
           <button class="btn btn--small" type="button" data-action="add-artwork">+ Add</button>
         </div>
-        <div class="list">${list || '<p class="empty">No artworks yet.</p>'}</div>
+
+        ${
+          artworks.length
+            ? `<div class="aw-table">
+          <div class="aw-head">
+            <span>Work</span><span>Details</span><span>Availability</span><span>Price</span><span>History</span><span>Portfolio</span><span></span>
+          </div>
+          ${rows}
+        </div>`
+            : '<p class="empty">No artworks yet.</p>'
+        }
       </div>
 
-      <div class="section">${artwork ? artworkForm(artwork, index) : '<p class="empty">Add an artwork to get started.</p>'}</div>
-    </div>`;
+      <div class="section" id="artwork-editor">${artwork ? artworkForm(artwork, index) : '<p class="empty">Add an artwork to get started.</p>'}</div>`;
 }
 
 function artworkForm(artwork, index) {
@@ -653,6 +728,7 @@ document.addEventListener("change", async (event) => {
 const ACTIONS = {
   "select-artwork": (index) => {
     state.artworkIndex = index;
+    scrollToEditor = true;
   },
   "add-artwork": () => {
     const artwork = emptyArtwork();
@@ -730,6 +806,9 @@ function moveSelected(index, direction) {
   markDirty();
 }
 
+/** Set by actions that should bring the artwork editor into view after render. */
+let scrollToEditor = false;
+
 document.addEventListener("click", (event) => {
   const el = event.target.closest("[data-action]");
   if (!el) return;
@@ -737,6 +816,10 @@ document.addEventListener("click", (event) => {
   if (!action) return;
   const result = action(Number(el.dataset.index), el);
   if (result !== false) render();
+  if (scrollToEditor) {
+    scrollToEditor = false;
+    document.getElementById("artwork-editor")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 });
 
 $("#tabs").addEventListener("click", (event) => {
