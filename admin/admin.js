@@ -205,11 +205,23 @@ function artworkRow(artwork, index, active) {
               : '<span class="aw-sub">No artist price</span>'
           }
           ${artwork.retailPrice ? `<span class="aw-sub">Retail ${money(artwork.retailPrice)}</span>` : ""}
-          <span class="aw-sub ${artwork.showPricePublicly ? "aw-sub--ok" : "aw-sub--off"}">
-            Public price: ${artwork.showPricePublicly ? "shown" : "hidden"}
+          <span class="aw-sub ${artwork.showPricePublicly && artwork.retailPrice ? "aw-sub--ok" : "aw-sub--off"}">
+            Public price: ${
+              !artwork.showPricePublicly
+                ? "hidden"
+                : artwork.retailPrice
+                  ? "shown"
+                  : "needs a retail price"
+            }
           </span>
-          <span class="aw-sub ${artwork.showPriceInCommercial ? "aw-sub--ok" : "aw-sub--off"}">
-            Commercial price: ${artwork.showPriceInCommercial ? "shown" : "hidden"}
+          <span class="aw-sub ${artwork.showPriceInCommercial && artwork.artistPrice ? "aw-sub--ok" : "aw-sub--off"}">
+            Commercial price: ${
+              !artwork.showPriceInCommercial
+                ? "hidden"
+                : artwork.artistPrice
+                  ? "shown"
+                  : "needs an artist price"
+            }
           </span>
         </div>
 
@@ -353,8 +365,9 @@ function artworkForm(artwork, index) {
         ${field("Retail price (€) — optional", `${base}.retailPrice`, artwork.retailPrice, { type: "number" })}
       </div>
       <p class="field__hint" style="margin:-4px 0 10px">
-        The price shown is the retail price when one is set, otherwise the artist price.
-        The two switches below are independent.
+        The public website only ever shows the <strong>retail price</strong> — leave it empty and
+        no price appears there, whatever the switch says. The commercial portfolio shows the
+        artist price. The two switches are independent.
       </p>
       ${toggle("Show price on public website", `${base}.showPricePublicly`, artwork.showPricePublicly)}
       ${toggle("Show price in commercial portfolio", `${base}.showPriceInCommercial`, artwork.showPriceInCommercial)}

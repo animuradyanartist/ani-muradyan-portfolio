@@ -324,11 +324,15 @@ export function artworkMeta(artwork) {
 }
 
 /**
- * The price a visitor is quoted: the retail price when one is set, otherwise
- * the artist price. Only ever used behind a visibility switch.
+ * The only price a visitor may ever be quoted: the retail price.
+ *
+ * There is deliberately NO fallback to the artist price — that figure is
+ * internal and gallery-facing, and a fallback would leak it the moment a
+ * retail price was left blank. No retail price means no public price, however
+ * the switches are set.
  */
-export function askingPrice(artwork) {
-  return artwork.retailPrice ?? artwork.artistPrice ?? null;
+export function publicPrice(artwork) {
+  return artwork.retailPrice ?? null;
 }
 
 /**
@@ -337,11 +341,13 @@ export function askingPrice(artwork) {
  * added here on purpose.
  *
  * Three fields are conditional: the price and the location each follow their
- * own switch, and exhibition history appears only when there is any.
+ * own switch, and exhibition history appears only when there is any. The
+ * published price is the RETAIL price alone; the artist price never leaves
+ * the admin or the commercial portfolio.
  */
 export function publicArtwork(artwork) {
   const a = normaliseArtwork(artwork);
-  const price = askingPrice(a);
+  const price = publicPrice(a);
 
   const out = {
     id: a.id,
@@ -358,6 +364,7 @@ export function publicArtwork(artwork) {
     displayOrder: a.displayOrder,
   };
 
+  // retail price only — never the artist price (see publicPrice)
   if (a.showPricePublicly && price) out.price = price;
   if (a.showLocationPublicly && a.currentLocation) out.currentLocation = a.currentLocation;
   if (a.previouslyExhibited && a.exhibitionHistory.length) out.exhibitionHistory = a.exhibitionHistory;
