@@ -13,14 +13,17 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { REGIONS } from "../render-content.mjs";
-import { normaliseContent } from "../content-schema.mjs";
-import { commercialPortfolio } from "../content-schema.mjs";
+import { normaliseContent, publicContent, commercialPortfolio } from "../content-schema.mjs";
 import { COMMERCIAL_REGIONS } from "../commercial/commercial-render.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const out = process.argv[2] || path.join(ROOT, "_site");
 
 const content = normaliseContent(JSON.parse(await fs.readFile(path.join(ROOT, "content.json"), "utf8")));
+// The public pages are baked from the PUBLIC view, never the raw content —
+// the same subset /api/content serves, so what is baked and what is fetched
+// obey identical visibility rules.
+const published = publicContent(content);
 const portfolio = commercialPortfolio(content);
 
 /** Every .html file in the build except the admin (which has no content regions). */
@@ -41,7 +44,7 @@ for (const file of await pages(out)) {
   const context = { category: html.match(/<body[^>]*data-category="([^"]+)"/)?.[1] };
   const isCommercial = file.includes(`${path.sep}commercial${path.sep}`);
   const renderers = isCommercial ? COMMERCIAL_REGIONS : REGIONS;
-  const data = isCommercial ? portfolio : content;
+  const data = isCommercial ? portfolio : published;
   const baked = [];
 
   for (const [name, render] of Object.entries(renderers)) {

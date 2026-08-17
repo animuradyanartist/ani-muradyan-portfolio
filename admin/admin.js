@@ -191,6 +191,11 @@ function artworkRow(artwork, index, active) {
         <div class="aw-cell" data-label="Availability">
           <span class="badge badge--${esc(artwork.availability)}">${esc(labelOf(AVAILABILITY, artwork.availability))}</span>
           <span class="aw-sub">${esc(artwork.currentLocation || "No location")}</span>
+          ${
+            artwork.currentLocation
+              ? `<span class="aw-sub ${artwork.showLocationPublicly ? "aw-sub--ok" : "aw-sub--off"}">Location: ${artwork.showLocationPublicly ? "public" : "private"}</span>`
+              : ""
+          }
         </div>
 
         <div class="aw-cell" data-label="Price">
@@ -200,6 +205,9 @@ function artworkRow(artwork, index, active) {
               : '<span class="aw-sub">No artist price</span>'
           }
           ${artwork.retailPrice ? `<span class="aw-sub">Retail ${money(artwork.retailPrice)}</span>` : ""}
+          <span class="aw-sub ${artwork.showPricePublicly ? "aw-sub--ok" : "aw-sub--off"}">
+            Public price: ${artwork.showPricePublicly ? "shown" : "hidden"}
+          </span>
           <span class="aw-sub ${artwork.showPriceInCommercial ? "aw-sub--ok" : "aw-sub--off"}">
             Commercial price: ${artwork.showPriceInCommercial ? "shown" : "hidden"}
           </span>
@@ -329,9 +337,10 @@ function artworkForm(artwork, index) {
         <span class="subsection__title">Availability</span>
       </div>
       <div class="row">
-        ${select("Status", `${base}.availability`, artwork.availability, AVAILABILITY)}
+        ${select("Status", `${base}.availability`, artwork.availability, AVAILABILITY, "Shown on the public site.")}
         ${field("Current location", `${base}.currentLocation`, artwork.currentLocation, { placeholder: "Yerevan, Armenia" })}
       </div>
+      ${toggle("Show location publicly", `${base}.showLocationPublicly`, artwork.showLocationPublicly)}
     </div>
 
     <div class="subsection">
@@ -343,6 +352,11 @@ function artworkForm(artwork, index) {
         ${field("Artist price (€)", `${base}.artistPrice`, artwork.artistPrice, { type: "number" })}
         ${field("Retail price (€) — optional", `${base}.retailPrice`, artwork.retailPrice, { type: "number" })}
       </div>
+      <p class="field__hint" style="margin:-4px 0 10px">
+        The price shown is the retail price when one is set, otherwise the artist price.
+        The two switches below are independent.
+      </p>
+      ${toggle("Show price on public website", `${base}.showPricePublicly`, artwork.showPricePublicly)}
       ${toggle("Show price in commercial portfolio", `${base}.showPriceInCommercial`, artwork.showPriceInCommercial)}
     </div>
 

@@ -77,15 +77,19 @@ export const COMMERCIAL_TARGET_MAX = 15;
 /* ----------------------------------------------------------- the contract */
 
 /**
- * Artwork fields the public site must never receive. Add a commercial field?
- * Add it here — publicContent() reads this list.
+ * Artwork fields that must never reach the public site. publicArtwork() is a
+ * whitelist, so this list is the statement of intent it is checked against —
+ * a field is private unless it is deliberately published.
+ *
+ * `currentLocation` and `exhibitionHistory` are absent on purpose: they are
+ * publishable, but only through their own conditions (see publicArtwork).
  */
 export const PRIVATE_ARTWORK_FIELDS = [
   "artistPrice",
   "retailPrice",
+  "showPricePublicly",
   "showPriceInCommercial",
-  "currentLocation",
-  "exhibitionHistory",
+  "showLocationPublicly",
   "previouslyExhibited",
   "hasCommitment",
   "commitment",
@@ -128,7 +132,9 @@ export const emptyArtwork = () => ({
   currentLocation: "",
   artistPrice: null,
   retailPrice: null,
+  showPricePublicly: false,
   showPriceInCommercial: false,
+  showLocationPublicly: false,
   previouslyExhibited: false,
   exhibitionHistory: [],
   hasCommitment: false,
@@ -220,7 +226,11 @@ export function normaliseArtwork(raw = {}, taken = []) {
     currentLocation: str(raw.currentLocation),
     artistPrice: num(raw.artistPrice),
     retailPrice: num(raw.retailPrice),
+    // Two independent switches: the public site and the gallery portfolio can
+    // show a price on their own terms — or neither.
+    showPricePublicly: bool(raw.showPricePublicly),
     showPriceInCommercial: bool(raw.showPriceInCommercial),
+    showLocationPublicly: bool(raw.showLocationPublicly),
     previouslyExhibited: bool(raw.previouslyExhibited),
     exhibitionHistory: list(raw.exhibitionHistory)
       .map((e) => ({
@@ -313,9 +323,45 @@ export function artworkMeta(artwork) {
   return [artwork.medium, dimensionsLabel(artwork), artwork.year].filter(Boolean).join(" · ");
 }
 
+/**
+ * The price a visitor is quoted: the retail price when one is set, otherwise
+ * the artist price. Only ever used behind a visibility switch.
+ */
+export function askingPrice(artwork) {
+  return artwork.retailPrice ?? artwork.artistPrice ?? null;
+}
+
+/**
+ * The public face of an artwork — built by naming what MAY be shown, not by
+ * deleting what may not. Anything new on an artwork is private until it is
+ * added here on purpose.
+ *
+ * Three fields are conditional: the price and the location each follow their
+ * own switch, and exhibition history appears only when there is any.
+ */
 export function publicArtwork(artwork) {
-  const out = { ...artwork };
-  for (const field of PRIVATE_ARTWORK_FIELDS) delete out[field];
+  const a = normaliseArtwork(artwork);
+  const price = askingPrice(a);
+
+  const out = {
+    id: a.id,
+    title: a.title,
+    year: a.year,
+    medium: a.medium,
+    category: a.category,
+    widthCm: a.widthCm,
+    heightCm: a.heightCm,
+    mainImage: a.mainImage,
+    detailImages: a.detailImages,
+    availability: a.availability,
+    featured: a.featured,
+    displayOrder: a.displayOrder,
+  };
+
+  if (a.showPricePublicly && price) out.price = price;
+  if (a.showLocationPublicly && a.currentLocation) out.currentLocation = a.currentLocation;
+  if (a.previouslyExhibited && a.exhibitionHistory.length) out.exhibitionHistory = a.exhibitionHistory;
+
   return out;
 }
 
@@ -361,6 +407,13 @@ export function assetUrl(src) {
   const value = String(src || "");
   if (!value || value.startsWith("http") || value.startsWith("data:") || value.startsWith("/")) return value;
   return `/${value}`;
+}
+
+/** "2022 — Art 3f / Expo, Porte de Versailles, Paris" */
+export function formatExhibitionEntry(entry) {
+  const place = [entry.venue, entry.city, entry.country].map((p) => (p || "").trim()).filter(Boolean).join(", ");
+  const rest = [entry.name, place].filter(Boolean).join(", ");
+  return entry.year ? `${entry.year} — ${rest}` : rest;
 }
 
 export const isForthcoming = (status) => status === "confirmed" || status === "upcoming";

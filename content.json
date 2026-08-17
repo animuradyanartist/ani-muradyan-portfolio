@@ -39,7 +39,9 @@
       "displayOrder": 1,
       "privateNotes": "",
       "commercialOrder": 1,
-      "category": "figurative"
+      "category": "figurative",
+      "showPricePublicly": false,
+      "showLocationPublicly": false
     },
     {
       "id": "observer",
@@ -70,7 +72,9 @@
       "displayOrder": 2,
       "privateNotes": "",
       "commercialOrder": 2,
-      "category": "figurative"
+      "category": "figurative",
+      "showPricePublicly": false,
+      "showLocationPublicly": false
     },
     {
       "id": "inner-direction",
@@ -101,7 +105,9 @@
       "displayOrder": 3,
       "privateNotes": "",
       "commercialOrder": 3,
-      "category": "figurative"
+      "category": "figurative",
+      "showPricePublicly": false,
+      "showLocationPublicly": false
     },
     {
       "id": "silent-bliss",
@@ -132,7 +138,9 @@
       "displayOrder": 4,
       "privateNotes": "",
       "commercialOrder": 4,
-      "category": "figurative"
+      "category": "figurative",
+      "showPricePublicly": false,
+      "showLocationPublicly": false
     },
     {
       "id": "rebirth",
@@ -163,7 +171,9 @@
       "displayOrder": 5,
       "privateNotes": "",
       "commercialOrder": 5,
-      "category": "figurative"
+      "category": "figurative",
+      "showPricePublicly": false,
+      "showLocationPublicly": false
     }
   ],
   "exhibitions": [

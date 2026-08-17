@@ -7,7 +7,16 @@
  * is complete for search engines and the first paint) and once in the browser
  * (so a save in the admin shows up without a rebuild).
  */
-import { artworkMeta, artworksInCategory, assetUrl, CATEGORIES, categoryLabel } from "./content-schema.mjs";
+import {
+  artworkMeta,
+  artworksInCategory,
+  assetUrl,
+  AVAILABILITY,
+  CATEGORIES,
+  categoryLabel,
+  formatExhibitionEntry,
+  labelOf,
+} from "./content-schema.mjs";
 
 const esc = (value) =>
   String(value ?? "")
@@ -48,6 +57,19 @@ export function artworksHtml(content) {
           <span class="series__no">${pad(index + 1)}</span>
           <h3 class="script-heading script-heading--sm reveal">${esc(artwork.title)}</h3>
           <p class="series__meta reveal">${esc(artworkMeta(artwork))}</p>
+        </div>
+        <div class="series__info reveal">
+          <span class="status status--${esc(artwork.availability)}">${esc(labelOf(AVAILABILITY, artwork.availability))}</span>
+          ${artwork.price ? `<span class="series__price">€${Number(artwork.price).toLocaleString("en-GB")}</span>` : ""}
+          ${artwork.currentLocation ? `<span class="series__where">${esc(artwork.currentLocation)}</span>` : ""}
+          ${
+            artwork.exhibitionHistory?.length
+              ? `<div class="series__history">
+            <span class="series__history-title">Exhibition history</span>
+            ${artwork.exhibitionHistory.map((entry) => `<span>${esc(formatExhibitionEntry(entry))}</span>`).join("\n            ")}
+          </div>`
+              : ""
+          }
         </div>
       </article>`;
     })

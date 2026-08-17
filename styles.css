@@ -322,6 +322,30 @@ a{color:inherit;text-decoration:none}
 .art__head{text-align:center;max-width:var(--maxw);margin:0 auto clamp(2.6em,4.5vw,3.6em);padding:0 var(--gutter)}
 .art__sub{margin-top:.6em;color:var(--ink-soft);font-weight:300;font-size:clamp(1rem,1.4vw,1.18rem)}
 
+/* ---------- artwork metadata (from the studio admin) ---------- */
+/* A quiet line under each pair of images: status, price, where it is, and the
+   shows it has been in. Everything here is admin-managed and each part only
+   appears when the artist has published it. */
+.series__info{
+  grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;
+  gap:.6em 1.4em;margin-top:clamp(14px,2vw,24px);
+}
+.status{
+  font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
+  padding:3px 10px;border-radius:999px;background:rgba(12,21,34,.06);color:var(--ink-soft);
+}
+.status--available{background:rgba(47,125,92,.12);color:#2f7d5c}
+.status--reserved{background:rgba(245,144,7,.16);color:var(--orange-deep)}
+.series__price{font-size:1rem;font-weight:500;color:var(--ink)}
+.series__where{font-size:.82rem;font-weight:300;color:var(--ink-soft)}
+.series__history{
+  flex:1 0 100%;display:flex;flex-wrap:wrap;gap:.35em 1.2em;align-items:baseline;
+  font-size:.82rem;font-weight:300;color:var(--ink-soft);
+}
+.series__history-title{
+  font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--ink);
+}
+
 /* ---------- category cards (Figurative · Landscape) ---------- */
 .cats{
   max-width:var(--maxw);margin:0 auto clamp(3em,6vw,5em);padding:0 var(--gutter);
