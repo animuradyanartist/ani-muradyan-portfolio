@@ -367,7 +367,7 @@ export function publicArtwork(artwork) {
   // retail price only — never the artist price (see publicPrice)
   if (a.showPricePublicly && price) out.price = price;
   if (a.showLocationPublicly && a.currentLocation) out.currentLocation = a.currentLocation;
-  if (a.previouslyExhibited && a.exhibitionHistory.length) out.exhibitionHistory = a.exhibitionHistory;
+  if (a.exhibitionHistory.length) out.exhibitionHistory = a.exhibitionHistory;
 
   return out;
 }
@@ -416,6 +416,17 @@ export function assetUrl(src) {
   return `/${value}`;
 }
 
+/** Newest first — what a visitor and a gallery both expect. */
+export function sortExhibitions(entries = []) {
+  return [...entries].sort((a, b) => Number(b.year || 0) - Number(a.year || 0));
+}
+
+/** The place line of an entry: "Gaudi Gallery · Madrid, Spain" */
+export function exhibitionPlace(entry) {
+  const where = [entry.city, entry.country].map((p) => (p || "").trim()).filter(Boolean).join(", ");
+  return [entry.venue, where].map((p) => (p || "").trim()).filter(Boolean).join(" · ");
+}
+
 /** "2022 — Art 3f / Expo, Porte de Versailles, Paris" */
 export function formatExhibitionEntry(entry) {
   const place = [entry.venue, entry.city, entry.country].map((p) => (p || "").trim()).filter(Boolean).join(", ");
@@ -450,7 +461,7 @@ export function commercialPortfolio(content) {
       availability: a.availability,
       currentLocation: a.currentLocation,
       featured: a.featured,
-      exhibitionHistory: a.previouslyExhibited ? a.exhibitionHistory : [],
+      exhibitionHistory: a.exhibitionHistory,
       commitment: a.hasCommitment ? a.commitment : null,
       pricing: a.showPriceInCommercial
         ? { currency: "EUR", artistPrice: a.artistPrice, retailPrice: a.retailPrice }

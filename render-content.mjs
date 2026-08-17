@@ -14,8 +14,9 @@ import {
   AVAILABILITY,
   CATEGORIES,
   categoryLabel,
-  formatExhibitionEntry,
+  exhibitionPlace,
   labelOf,
+  sortExhibitions,
 } from "./content-schema.mjs";
 
 const esc = (value) =>
@@ -26,6 +27,49 @@ const esc = (value) =>
     .replace(/"/g, "&quot;");
 
 const pad = (n) => String(n).padStart(2, "0");
+
+/**
+ * The information area under each work: only the sections that hold something.
+ * Location appears when the artist published it, exhibition history whenever
+ * records exist — never an empty heading.
+ */
+export function artworkDetailsHtml(artwork) {
+  const blocks = [];
+
+  if (artwork.currentLocation) {
+    blocks.push(`
+          <div class="series__block">
+            <p class="series__block-title">Location</p>
+            <p class="series__block-line">${esc(artwork.currentLocation)}</p>
+          </div>`);
+  }
+
+  if (artwork.exhibitionHistory?.length) {
+    const entries = sortExhibitions(artwork.exhibitionHistory)
+      .map((entry) => {
+        const place = exhibitionPlace(entry);
+        return `
+              <li>
+                <span class="series__exh-head">${entry.year ? `${esc(entry.year)} — ` : ""}${esc(entry.name)}</span>
+                ${place ? `<span class="series__exh-place">${esc(place)}</span>` : ""}
+              </li>`;
+      })
+      .join("");
+
+    blocks.push(`
+          <div class="series__block">
+            <p class="series__block-title">Exhibition history</p>
+            <ul class="series__exh">${entries}
+            </ul>
+          </div>`);
+  }
+
+  if (!blocks.length) return "";
+
+  return `
+        <div class="series__details reveal">${blocks.join("")}
+        </div>`;
+}
 
 /** The five series blocks: the painting, and the painting at home. */
 export function artworksHtml(content) {
@@ -64,32 +108,13 @@ export function artworksHtml(content) {
             </p>
           </div>
         </div>
-        ${
-          artwork.currentLocation || artwork.exhibitionHistory?.length
-            ? `<div class="series__info reveal">
-          ${artwork.currentLocation ? `<span class="series__where">${esc(artwork.currentLocation)}</span>` : ""}
-          ${
-            artwork.exhibitionHistory?.length
-              ? `<div class="series__history">
-            <span class="series__history-title">Exhibition history</span>
-            ${artwork.exhibitionHistory.map((entry) => `<span>${esc(formatExhibitionEntry(entry))}</span>`).join("\n            ")}
-          </div>`
-              : ""
-          }
-        </div>`
-            : ""
-        }
+        ${artworkDetailsHtml(artwork)}
       </article>`;
     })
     .join("\n");
 }
 
 const exhibitionYear = (exhibition) => String(exhibition.startDate || "").slice(0, 4);
-
-const exhibitionPlace = (exhibition) =>
-  [exhibition.venue, [exhibition.city, exhibition.country].filter(Boolean).join(", ")]
-    .filter(Boolean)
-    .join(" · ");
 
 /** Two balanced columns of dated exhibition entries, oldest first. */
 export function exhibitionsHtml(content) {

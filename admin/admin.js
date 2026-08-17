@@ -379,7 +379,7 @@ function artworkForm(artwork, index) {
         ${toggle("Previously exhibited", `${base}.previouslyExhibited`, artwork.previouslyExhibited)}
       </div>
       ${
-        artwork.previouslyExhibited
+        artwork.previouslyExhibited || artwork.exhibitionHistory.length
           ? `${history}<button class="btn btn--small" type="button" data-action="add-history">+ Add exhibition</button>`
           : '<p class="field__hint">Switch on to record where this work has been shown.</p>'
       }

@@ -326,10 +326,24 @@ a{color:inherit;text-decoration:none}
 /* A quiet line under each pair of images: status, price, where it is, and the
    shows it has been in. Everything here is admin-managed and each part only
    appears when the artist has published it. */
-.series__info{
-  grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:baseline;
-  gap:.5em 1.4em;margin-top:clamp(12px,1.6vw,20px);
+/* The information area under each work — location and where it has been shown.
+   Quiet, editorial, and only present when there is something in it. */
+.series__details{
+  grid-column:1/-1;display:grid;gap:clamp(18px,2.4vw,34px);
+  grid-template-columns:repeat(auto-fit,minmax(240px,auto));
+  justify-content:start;
+  margin-top:clamp(16px,2vw,26px);padding-top:clamp(14px,1.8vw,22px);
+  border-top:1px solid rgba(12,21,34,.1);
 }
+.series__block-title{
+  font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;
+  color:var(--ink);margin-bottom:.7em;
+}
+.series__block-line{font-size:.9rem;font-weight:300;color:var(--ink-soft)}
+.series__exh{list-style:none;display:grid;gap:.85em}
+.series__exh li{display:grid;gap:1px}
+.series__exh-head{font-size:.9rem;font-weight:400;color:var(--ink)}
+.series__exh-place{font-size:.82rem;font-weight:300;color:var(--ink-soft)}
 .status{
   font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
   padding:3px 10px;border-radius:999px;background:rgba(12,21,34,.06);color:var(--ink-soft);
@@ -337,14 +351,6 @@ a{color:inherit;text-decoration:none}
 .status--available{background:rgba(47,125,92,.12);color:#2f7d5c}
 .status--reserved{background:rgba(245,144,7,.16);color:var(--orange-deep)}
 .series__price{font-size:1rem;font-weight:500;color:var(--ink)}
-.series__where{font-size:.82rem;font-weight:300;color:var(--ink-soft)}
-.series__history{
-  flex:1 0 100%;display:flex;flex-wrap:wrap;gap:.35em 1.2em;align-items:baseline;
-  font-size:.82rem;font-weight:300;color:var(--ink-soft);
-}
-.series__history-title{
-  font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--ink);
-}
 
 /* ---------- category cards (Figurative · Landscape) ---------- */
 .cats{
