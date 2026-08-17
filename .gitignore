@@ -5,6 +5,8 @@
 _site/
 
 # Local dev / tooling
+# Admin content + uploads when running locally (Netlify Blobs in production)
+.data/
 node_modules/
 .netlify/
 .cache/

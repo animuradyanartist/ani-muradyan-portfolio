@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Studio admin — Ani Muradyan</title>
+  <link rel="stylesheet" href="/admin/admin.css" />
+</head>
+<body>
+  <!-- ===================== LOGIN ===================== -->
+  <div class="login" id="login" hidden>
+    <form class="login__card" id="login-form">
+      <p class="login__eyebrow">Ani Muradyan</p>
+      <h1 class="login__title">Studio admin</h1>
+      <label class="field">
+        <span class="field__label">Password</span>
+        <input type="password" id="password" autocomplete="current-password" required />
+      </label>
+      <p class="login__error" id="login-error" hidden></p>
+      <button class="btn btn--primary" type="submit">Enter</button>
+    </form>
+  </div>
+
+  <!-- ===================== APP ===================== -->
+  <div class="app" id="app" hidden>
+    <header class="topbar">
+      <div class="topbar__brand">
+        <span class="topbar__mark">AM</span>
+        <div>
+          <p class="topbar__title">Studio admin</p>
+          <p class="topbar__sub">Artworks &amp; gallery information</p>
+        </div>
+      </div>
+      <div class="topbar__actions">
+        <span class="save-state" id="save-state">Saved</span>
+        <button class="btn btn--primary" id="save" type="button">Save changes</button>
+        <button class="btn btn--quiet" id="logout" type="button">Log out</button>
+      </div>
+    </header>
+
+    <nav class="tabs" id="tabs">
+      <button class="tab is-active" data-tab="artworks" type="button">Artworks</button>
+      <button class="tab" data-tab="artist" type="button">Artist &amp; practice</button>
+      <button class="tab" data-tab="exhibitions" type="button">Exhibitions &amp; residencies</button>
+      <button class="tab" data-tab="commercial" type="button">Markets &amp; commercial</button>
+    </nav>
+
+    <main class="panels">
+      <section class="panel" id="panel-artworks"></section>
+      <section class="panel" id="panel-artist" hidden></section>
+      <section class="panel" id="panel-exhibitions" hidden></section>
+      <section class="panel" id="panel-commercial" hidden></section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script type="module" src="/admin/admin.js"></script>
+</body>
+</html>

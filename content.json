@@ -1,0 +1,284 @@
+{
+  "artist": {
+    "name": "Ani Muradyan",
+    "location": "Yerevan, Armenia",
+    "shortBio": "I paint the quiet dialogue between the world outside and the world within.",
+    "statement": "In portraits and figures, I seek the essence of human presence — capturing emotion, character, and the silent stories behind every face. In landscapes, I explore nature as a reflection of lived moments, where light, space, and memory meet. Across nature, people, and abstraction, my work is a journey — an exploration of connection, emotion, and the poetry that exists between reality and imagination.",
+    "currentPractice": "",
+    "nextBodyOfWork": "",
+    "profileImage": "/assets/about.jpg",
+    "studioImage": ""
+  },
+  "artworks": [
+    {
+      "id": "blue-detachment",
+      "title": "Blue Detachment",
+      "year": 2026,
+      "medium": "Oil on canvas",
+      "widthCm": 80,
+      "heightCm": 90,
+      "mainImage": "/assets/art-blue-detachment.jpg",
+      "detailImages": [
+        "/assets/room-blue-detachment.jpg"
+      ],
+      "availability": "available",
+      "currentLocation": "Yerevan, Armenia",
+      "artistPrice": null,
+      "retailPrice": null,
+      "showPriceInCommercial": false,
+      "previouslyExhibited": false,
+      "exhibitionHistory": [],
+      "hasCommitment": false,
+      "commitment": {
+        "type": "",
+        "details": "",
+        "until": ""
+      },
+      "includeInCommercial": true,
+      "featured": false,
+      "displayOrder": 1,
+      "privateNotes": "",
+      "commercialOrder": 1,
+      "category": "figurative"
+    },
+    {
+      "id": "observer",
+      "title": "Observer",
+      "year": 2025,
+      "medium": "Oil on canvas",
+      "widthCm": 80,
+      "heightCm": 100,
+      "mainImage": "/assets/art-observer.jpg",
+      "detailImages": [
+        "/assets/room-observer.jpg"
+      ],
+      "availability": "available",
+      "currentLocation": "Yerevan, Armenia",
+      "artistPrice": null,
+      "retailPrice": null,
+      "showPriceInCommercial": false,
+      "previouslyExhibited": false,
+      "exhibitionHistory": [],
+      "hasCommitment": false,
+      "commitment": {
+        "type": "",
+        "details": "",
+        "until": ""
+      },
+      "includeInCommercial": true,
+      "featured": false,
+      "displayOrder": 2,
+      "privateNotes": "",
+      "commercialOrder": 2,
+      "category": "figurative"
+    },
+    {
+      "id": "inner-direction",
+      "title": "Inner Direction",
+      "year": 2025,
+      "medium": "Oil on canvas",
+      "widthCm": 80,
+      "heightCm": 100,
+      "mainImage": "/assets/art-inner-direction.jpg",
+      "detailImages": [
+        "/assets/room-inner-direction.jpg"
+      ],
+      "availability": "available",
+      "currentLocation": "Yerevan, Armenia",
+      "artistPrice": null,
+      "retailPrice": null,
+      "showPriceInCommercial": false,
+      "previouslyExhibited": false,
+      "exhibitionHistory": [],
+      "hasCommitment": false,
+      "commitment": {
+        "type": "",
+        "details": "",
+        "until": ""
+      },
+      "includeInCommercial": true,
+      "featured": false,
+      "displayOrder": 3,
+      "privateNotes": "",
+      "commercialOrder": 3,
+      "category": "figurative"
+    },
+    {
+      "id": "silent-bliss",
+      "title": "Silent Bliss",
+      "year": 2024,
+      "medium": "Oil on canvas",
+      "widthCm": 80,
+      "heightCm": 100,
+      "mainImage": "/assets/art-silent-bliss.jpg",
+      "detailImages": [
+        "/assets/room-silent-bliss.jpg"
+      ],
+      "availability": "available",
+      "currentLocation": "Yerevan, Armenia",
+      "artistPrice": null,
+      "retailPrice": null,
+      "showPriceInCommercial": false,
+      "previouslyExhibited": false,
+      "exhibitionHistory": [],
+      "hasCommitment": false,
+      "commitment": {
+        "type": "",
+        "details": "",
+        "until": ""
+      },
+      "includeInCommercial": true,
+      "featured": false,
+      "displayOrder": 4,
+      "privateNotes": "",
+      "commercialOrder": 4,
+      "category": "figurative"
+    },
+    {
+      "id": "rebirth",
+      "title": "Rebirth",
+      "year": 2026,
+      "medium": "Oil on canvas",
+      "widthCm": 60,
+      "heightCm": 70,
+      "mainImage": "/assets/art-rebirth.jpg",
+      "detailImages": [
+        "/assets/room-rebirth.jpg"
+      ],
+      "availability": "available",
+      "currentLocation": "Yerevan, Armenia",
+      "artistPrice": null,
+      "retailPrice": null,
+      "showPriceInCommercial": false,
+      "previouslyExhibited": false,
+      "exhibitionHistory": [],
+      "hasCommitment": false,
+      "commitment": {
+        "type": "",
+        "details": "",
+        "until": ""
+      },
+      "includeInCommercial": true,
+      "featured": false,
+      "displayOrder": 5,
+      "privateNotes": "",
+      "commercialOrder": 5,
+      "category": "figurative"
+    }
+  ],
+  "exhibitions": [
+    {
+      "id": "art-3f-2022",
+      "type": "group",
+      "name": "Art 3f / Expo",
+      "venue": "Porte de Versailles",
+      "city": "Paris",
+      "country": "France",
+      "startDate": "2022",
+      "endDate": "",
+      "status": "past",
+      "link": ""
+    },
+    {
+      "id": "christmas-art-fair-2022",
+      "type": "group",
+      "name": "Christmas Art Fair",
+      "venue": "Artists Union of Armenia",
+      "city": "Yerevan",
+      "country": "Armenia",
+      "startDate": "2022",
+      "endDate": "",
+      "status": "past",
+      "link": ""
+    },
+    {
+      "id": "art-of-nobility-2023",
+      "type": "group",
+      "name": "Art of Nobility",
+      "venue": "Gaudi Gallery",
+      "city": "Madrid",
+      "country": "Spain",
+      "startDate": "2023",
+      "endDate": "",
+      "status": "past",
+      "link": ""
+    },
+    {
+      "id": "select-art-2023",
+      "type": "group",
+      "name": "SELECT ART '23",
+      "venue": "World of Crete",
+      "city": "Thessaloniki",
+      "country": "Greece",
+      "startDate": "2023",
+      "endDate": "",
+      "status": "past",
+      "link": ""
+    },
+    {
+      "id": "christmas-art-exhibition-2024",
+      "type": "group",
+      "name": "Christmas Art Exhibition",
+      "venue": "Artists Union of Armenia",
+      "city": "Yerevan",
+      "country": "Armenia",
+      "startDate": "2024",
+      "endDate": "",
+      "status": "past",
+      "link": ""
+    },
+    {
+      "id": "solo-exhibition-2024",
+      "type": "solo",
+      "name": "Solo Exhibition",
+      "venue": "Pyunik Development Center",
+      "city": "Yerevan",
+      "country": "Armenia",
+      "startDate": "2024",
+      "endDate": "",
+      "status": "past",
+      "link": ""
+    },
+    {
+      "id": "art-embassy-gallery-2025",
+      "type": "group",
+      "name": "Art Embassy Gallery",
+      "venue": "Art Embassy Gallery",
+      "city": "Yerevan",
+      "country": "Armenia",
+      "startDate": "2025",
+      "endDate": "",
+      "status": "past",
+      "link": ""
+    },
+    {
+      "id": "woman-love-harmony-2026",
+      "type": "group",
+      "name": "WOMAN: LOVE: HARMONY",
+      "venue": "Russian Museum of Art",
+      "city": "Yerevan",
+      "country": "Armenia",
+      "startDate": "2026",
+      "endDate": "",
+      "status": "confirmed",
+      "link": ""
+    }
+  ],
+  "contact": {
+    "email": "animuradyan.artist@gmail.com",
+    "instagramHandle": "@animoria.art",
+    "instagramUrl": "https://www.instagram.com/animoria.art/",
+    "singulartLabel": "Ani Muradyan",
+    "singulartUrl": "https://www.singulart.com/en/artist/ani-muradyan-62448?ref=ts",
+    "websiteLabel": "animuradyan.com",
+    "websiteUrl": "http://animuradyan.com/"
+  },
+  "commercial": {
+    "markets": [],
+    "priorityCountries": "",
+    "interestedIn": [],
+    "openToRepresentation": false,
+    "exclusivity": "open",
+    "privateNotes": ""
+  }
+}

@@ -1,0 +1,430 @@
+/* =========================================================
+   /commercial — the gallery-facing portfolio.
+
+   Same palette and type as the site, but a quieter voice: no script
+   headings, no decorative blobs, no cards. Wide margins, big paintings,
+   small text. The work carries the page.
+   ========================================================= */
+
+body.commercial {
+  background: var(--cream);
+  color: var(--ink);
+}
+
+.c-page {
+  --measure: 760px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(48px, 9vw, 130px) var(--gutter) clamp(60px, 8vw, 120px);
+}
+
+/* ------------------------------------------------------------------ intro */
+
+.c-intro {
+  max-width: var(--measure);
+  margin-bottom: clamp(56px, 9vw, 130px);
+}
+
+.c-eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 500;
+  margin-bottom: clamp(20px, 3vw, 34px);
+}
+
+.c-eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 34px;
+  height: 1px;
+  background: var(--orange);
+  vertical-align: middle;
+  margin-right: 14px;
+}
+
+.c-title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2.6rem, 7vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+}
+
+.c-role {
+  margin-top: 0.5em;
+  font-size: 0.82rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.c-lede {
+  margin-top: clamp(22px, 3vw, 34px);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.15rem, 2.1vw, 1.5rem);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  max-width: 34ch;
+}
+
+/* --------------------------------------------------------------- sections */
+
+.c-section {
+  padding-top: clamp(48px, 7vw, 96px);
+  border-top: 1px solid rgba(12, 21, 34, 0.09);
+  margin-top: clamp(56px, 8vw, 110px);
+}
+
+.c-heading {
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: clamp(34px, 5vw, 64px);
+}
+
+.c-subheading {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.12rem;
+  margin-bottom: 1.1em;
+}
+
+.c-block + .c-block {
+  margin-top: clamp(38px, 5vw, 64px);
+}
+
+/* ------------------------------------------------------------------ works */
+
+.work {
+  margin-bottom: clamp(70px, 11vw, 150px);
+}
+
+.work:last-child {
+  margin-bottom: 0;
+}
+
+.work__frame {
+  background: var(--linen);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+/* Big, but never taller than the screen — a gallery should be able to take a
+   whole painting in at a glance and keep scrolling. */
+.work__frame img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 76vh;
+}
+
+/* Detail shots stay small — a supporting note, never a second hero. */
+.work__details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(10px, 1.4vw, 16px);
+  margin-top: clamp(10px, 1.4vw, 16px);
+}
+
+.work__details img {
+  display: block;
+  height: clamp(120px, 15vw, 190px);
+  width: auto;
+  max-width: 100%;
+  object-fit: cover;
+  background: var(--linen);
+}
+
+.work__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px 32px;
+  margin-top: clamp(20px, 2.6vw, 34px);
+}
+
+.work__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.9vw, 2.15rem);
+  line-height: 1.15;
+  flex: 1 1 auto;
+}
+
+.work__year {
+  margin-left: 0.6em;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+  vertical-align: middle;
+}
+
+.work__facts {
+  flex: 1 1 260px;
+  color: var(--ink-soft);
+  font-weight: 300;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.work__where {
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+}
+
+.work__price {
+  text-align: right;
+  font-size: 1.02rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.work__status {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--orange-deep);
+  font-weight: 500;
+}
+
+.work__notes {
+  margin-top: clamp(16px, 2vw, 24px);
+  padding-top: clamp(14px, 1.8vw, 20px);
+  border-top: 1px solid rgba(12, 21, 34, 0.08);
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: 6px 24px;
+  font-size: 0.86rem;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+.work__notes dt {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 500;
+  padding-top: 0.28em;
+}
+
+.work__notes dd {
+  color: var(--ink-soft);
+}
+
+/* --------------------------------------------------------------- practice */
+
+.c-prose {
+  max-width: var(--measure);
+  font-weight: 300;
+  font-size: clamp(1.02rem, 1.5vw, 1.16rem);
+  line-height: 1.85;
+  color: var(--ink-soft);
+}
+
+.c-prose p + p {
+  margin-top: 1.1em;
+}
+
+.c-prose__lead {
+  margin-top: 2em !important;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.08em;
+  color: var(--ink);
+}
+
+/* ------------------------------------------------------------ exhibitions */
+
+.exh-list {
+  list-style: none;
+  max-width: var(--measure);
+}
+
+.exh-list li {
+  display: flex;
+  gap: clamp(16px, 3vw, 40px);
+  padding: 0.85em 0;
+  border-bottom: 1px solid rgba(12, 21, 34, 0.07);
+}
+
+.exh-list li:last-child {
+  border-bottom: 0;
+}
+
+.exh-year {
+  flex: 0 0 auto;
+  min-width: 5.5em;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+  padding-top: 0.25em;
+}
+
+.exh-body {
+  display: grid;
+  gap: 2px;
+}
+
+.exh-name {
+  font-size: 1.02rem;
+  font-weight: 400;
+}
+
+.exh-name em {
+  font-style: normal;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--orange-deep);
+  margin-left: 0.5em;
+  vertical-align: middle;
+}
+
+.exh-place {
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: var(--ink-soft);
+}
+
+.exh-list--quiet .exh-name {
+  font-weight: 300;
+}
+
+/* ---------------------------------------------------------------- markets */
+
+.focus {
+  max-width: var(--measure);
+}
+
+.focus__row {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 8px 24px;
+  padding: 0.9em 0;
+  border-bottom: 1px solid rgba(12, 21, 34, 0.07);
+}
+
+.focus__row:last-child {
+  border-bottom: 0;
+}
+
+.focus dt {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 500;
+  padding-top: 0.35em;
+}
+
+.focus dd {
+  font-weight: 300;
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+/* ---------------------------------------------------------------- contact */
+
+.contact-list {
+  list-style: none;
+  max-width: var(--measure);
+}
+
+.contact-list li {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 8px 24px;
+  padding: 0.9em 0;
+  border-bottom: 1px solid rgba(12, 21, 34, 0.07);
+}
+
+.contact-list li:last-child {
+  border-bottom: 0;
+}
+
+.contact-key {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 500;
+  padding-top: 0.3em;
+}
+
+.contact-list a {
+  font-weight: 300;
+  font-size: 1.02rem;
+  border-bottom: 1px solid rgba(12, 21, 34, 0.18);
+  transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+
+.contact-list a:hover {
+  color: var(--orange-deep);
+  border-color: var(--orange);
+}
+
+/* ------------------------------------------------------------------- foot */
+
+.c-foot {
+  margin-top: clamp(60px, 9vw, 120px);
+  padding-top: 22px;
+  border-top: 1px solid rgba(12, 21, 34, 0.09);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  justify-content: space-between;
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.c-foot a:hover {
+  color: var(--orange-deep);
+}
+
+/* ----------------------------------------------------------------- mobile */
+
+@media (max-width: 720px) {
+  .work__meta {
+    gap: 8px;
+  }
+
+  .work__price {
+    text-align: left;
+  }
+
+  .work__notes,
+  .focus__row,
+  .contact-list li {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .work__notes dt,
+  .focus dt,
+  .contact-key {
+    padding-top: 0.6em;
+  }
+
+  .exh-list li {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .work__details {
+    grid-template-columns: 1fr;
+  }
+}

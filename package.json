@@ -1,0 +1,14 @@
+{
+  "name": "ani-muradyan-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Portfolio site for Ani Muradyan, with an admin for artwork and gallery information.",
+  "scripts": {
+    "dev": "node server.cjs",
+    "build": "bash scripts/build.sh"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}

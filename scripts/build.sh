@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # Build the public site into _site/ for Netlify (or any static host).
+# Copies the page, the admin, and the shared content modules; bakes the
+# current content.json into the marked regions of index.html.
 # Excludes .claude/, server.cjs, README.md, scripts/, _site/ itself.
 #
 # Cache-busting: every reference to assets/<file> in the built HTML/CSS/JS is
@@ -16,7 +18,17 @@ rm -rf "$OUT"
 mkdir -p "$OUT"
 
 cp "$ROOT/index.html" "$ROOT/styles.css" "$ROOT/script.js" "$OUT/"
+# The admin, and the two modules the browser loads: the content shape and the
+# renderer that turns content into the page's own markup.
+cp "$ROOT/hydrate.js" "$ROOT/content-schema.mjs" "$ROOT/render-content.mjs" "$OUT/"
+cp -R "$ROOT/admin" "$OUT/admin"
+# Category pages and the gallery-facing /commercial page.
+cp -R "$ROOT/figurative" "$ROOT/landscape" "$ROOT/commercial" "$OUT/"
 cp -R "$ROOT/assets" "$OUT/assets"
+
+# Fill the <!-- content:* --> regions with the committed content so the
+# deployed HTML is complete without JavaScript.
+node "$ROOT/scripts/bake-content.mjs" "$OUT"
 
 python3 - "$OUT" <<'PY'
 import hashlib, os, re, sys
@@ -43,7 +55,18 @@ def fingerprint(text):
         text = pat.sub(f'assets/{fn}?v={ver[fn]}', text)
     return text
 
-for f in ("index.html", "styles.css", "script.js"):
+# every built page and stylesheet/script, so /figurative, /landscape and
+# /commercial get the same cache-busted URLs as the home page
+targets = []
+for dirpath, dirnames, filenames in os.walk(out):
+    if os.path.basename(dirpath) == "assets":
+        dirnames[:] = []
+        continue
+    for fn in filenames:
+        if fn.endswith((".html", ".css", ".js", ".mjs")):
+            targets.append(os.path.relpath(os.path.join(dirpath, fn), out))
+
+for f in sorted(targets):
     fp = os.path.join(out, f)
     with open(fp, "r", encoding="utf-8") as fh:
         src = fh.read()

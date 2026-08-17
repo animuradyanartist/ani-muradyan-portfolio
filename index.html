@@ -126,7 +126,13 @@
         <p class="art__sub reveal">Selected series — the painting, and the painting at home.</p>
       </header>
 
-      <!-- series template repeated -->
+      <!-- two doors into the work: Figurative and Landscape -->
+      <div class="cats">
+        <!-- content:categories -->
+        <!-- /content:categories -->
+      </div>
+
+      <!-- content:artworks -->
       <article class="series" data-index="01">
         <div class="series__media reveal" data-reveal="left">
           <figure class="series__paint" data-cursor>
@@ -216,6 +222,7 @@
           <p class="series__meta reveal">Oil on canvas · 60 × 70 cm · 2026</p>
         </div>
       </article>
+      <!-- /content:artworks -->
     </section>
 
     <!-- ===================== ABOUT ===================== -->
@@ -241,6 +248,7 @@
     <section class="exhibitions" id="exhibitions">
       <h2 class="script-heading script-heading--xl reveal">Exhibition Highlights</h2>
       <div class="exhibitions__grid">
+        <!-- content:exhibitions -->
         <ul class="exh-list">
           <li class="exh reveal">
             <span class="exh__year">2022</span>
@@ -285,6 +293,7 @@
             <p class="exh__place">Yerevan, Armenia</p>
           </li>
         </ul>
+        <!-- /content:exhibitions -->
       </div>
     </section>
 
@@ -298,6 +307,7 @@
         </div>
 
         <ul class="connect__list">
+          <!-- content:contact -->
           <li class="connect__item reveal">
             <span class="connect__k">Email</span>
             <a href="mailto:animuradyan.artist@gmail.com" class="connect__v" data-cursor>animuradyan.artist@gmail.com</a>
@@ -314,6 +324,7 @@
             <span class="connect__k">Website</span>
             <a href="http://animuradyan.com/" target="_blank" rel="noopener" class="connect__v" data-cursor>animuradyan.com</a>
           </li>
+          <!-- /content:contact -->
         </ul>
       </div>
 
@@ -325,5 +336,6 @@
   </main>
 
   <script src="script.js" defer></script>
+  <script type="module" src="hydrate.js"></script>
 </body>
 </html>
