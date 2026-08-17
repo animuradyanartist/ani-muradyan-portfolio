@@ -112,7 +112,9 @@ export async function handleApi(req) {
   // itself is shared as an unlisted link — it carries only what that page shows
   // (prices solely where the artist switched them on) and never a private note.
   if (path === "/api/commercial" && method === "GET") {
-    return json(200, commercialPortfolio(await readContent()), { "cache-control": "public, max-age=30" });
+    // Uncached, like /api/content: a price or commitment changed in the admin
+    // has to reach a gallery on their next load, not up to half a minute later.
+    return json(200, commercialPortfolio(await readContent()), { "cache-control": "no-store" });
   }
 
   if (path.startsWith("/api/images/") && method === "GET") {
