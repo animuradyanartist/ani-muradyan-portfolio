@@ -184,13 +184,6 @@ body.commercial {
   letter-spacing: 0.04em;
 }
 
-.work__price {
-  text-align: right;
-  font-size: 1.02rem;
-  font-weight: 500;
-  white-space: nowrap;
-}
-
 .work__status {
   font-size: 0.72rem;
   letter-spacing: 0.16em;
@@ -199,19 +192,21 @@ body.commercial {
   font-weight: 500;
 }
 
-.work__notes {
+/* The gallery record: label on the left, value on the right, one row per
+   thing that has been filled in. */
+.work__spec {
   margin-top: clamp(16px, 2vw, 24px);
   padding-top: clamp(14px, 1.8vw, 20px);
   border-top: 1px solid rgba(12, 21, 34, 0.08);
   display: grid;
-  grid-template-columns: 130px minmax(0, 1fr);
-  gap: 6px 24px;
-  font-size: 0.86rem;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 7px 24px;
+  font-size: 0.9rem;
   font-weight: 300;
   line-height: 1.65;
 }
 
-.work__notes dt {
+.work__spec dt {
   font-size: 0.68rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -220,8 +215,8 @@ body.commercial {
   padding-top: 0.28em;
 }
 
-.work__notes dd {
-  color: var(--ink-soft);
+.work__spec dd {
+  color: var(--ink);
 }
 
 /* --------------------------------------------------------------- practice */
@@ -402,18 +397,14 @@ body.commercial {
     gap: 8px;
   }
 
-  .work__price {
-    text-align: left;
-  }
-
-  .work__notes,
+  .work__spec,
   .focus__row,
   .contact-list li {
     grid-template-columns: 1fr;
     gap: 2px;
   }
 
-  .work__notes dt,
+  .work__spec dt,
   .focus dt,
   .contact-key {
     padding-top: 0.6em;

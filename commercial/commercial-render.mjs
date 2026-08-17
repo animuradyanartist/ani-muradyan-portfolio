@@ -9,7 +9,15 @@
  * What it may show is decided upstream in content-schema.mjs: prices only
  * where the artist switched them on, and never any private note.
  */
-import { assetUrl, AVAILABILITY, COMMITMENT_TYPES, INTERESTS, MARKETS, labelOf } from "../content-schema.mjs";
+import {
+  assetUrl,
+  AVAILABILITY,
+  COMMITMENT_TYPES,
+  formatExhibitionEntry,
+  INTERESTS,
+  MARKETS,
+  labelOf,
+} from "../content-schema.mjs";
 
 const esc = (value) =>
   String(value ?? "")
@@ -48,25 +56,28 @@ function workHtml(work, index) {
   const facts = [work.medium, work.dimensions].filter(has).join(" · ");
   const status = work.availability !== "available" ? labelOf(AVAILABILITY, work.availability) : "";
 
-  const notes = [];
+  // The record a gallery asks for, as labelled rows. A row is written only
+  // when there is something to say — except commitments, where "None" is
+  // itself the answer they are looking for.
+  const rows = [];
+
+  if (work.pricing?.artistPrice) rows.push(["Artist price", price(work.pricing.artistPrice)]);
+  if (work.pricing?.retailPrice) rows.push(["Retail price", price(work.pricing.retailPrice)]);
+  if (has(work.currentLocation)) rows.push(["Location", esc(work.currentLocation)]);
+
   if (work.exhibitionHistory?.length) {
-    notes.push({
-      key: "Exhibited",
-      value: work.exhibitionHistory
-        .map((entry) => {
-          const place = [entry.venue, entry.city, entry.country].filter(has).join(", ");
-          return [entry.name, place].filter(has).join(" · ") + (entry.year ? ` (${esc(entry.year)})` : "");
-        })
-        .join("<br />"),
-    });
+    rows.push([
+      "Exhibited",
+      work.exhibitionHistory.map((entry) => esc(formatExhibitionEntry(entry))).join("<br />"),
+    ]);
   }
-  if (work.commitment) {
-    const parts = [labelOf(COMMITMENT_TYPES, work.commitment.type), work.commitment.details]
-      .filter(has)
-      .join(" — ");
-    const until = has(work.commitment.until) ? ` · until ${readableDate(work.commitment.until)}` : "";
-    notes.push({ key: "Commitment", value: `${parts}${until}` });
-  }
+
+  const commitment = work.commitment
+    ? [labelOf(COMMITMENT_TYPES, work.commitment.type), work.commitment.details]
+        .filter(has)
+        .join(" — ") + (has(work.commitment.until) ? ` · until ${esc(readableDate(work.commitment.until))}` : "")
+    : "None";
+  rows.push(["Commitments", commitment]);
 
   const details = work.detailImages?.length
     ? `
@@ -87,22 +98,12 @@ function workHtml(work, index) {
           <h3 class="work__title">${esc(work.title)}<span class="work__year">${esc(work.year)}</span></h3>
           <div class="work__facts">
             ${facts ? `<p>${esc(facts)}</p>` : ""}
-            ${has(work.currentLocation) ? `<p class="work__where">${esc(work.currentLocation)}</p>` : ""}
           </div>
-          <div class="work__price">
-            ${work.pricing?.artistPrice ? `<p>${price(work.pricing.artistPrice)}</p>` : ""}
-            ${status ? `<p class="work__status">${esc(status)}</p>` : ""}
-          </div>
+          ${status ? `<p class="work__status">${esc(status)}</p>` : ""}
         </div>
-        ${
-          notes.length
-            ? `<dl class="work__notes">
-          ${notes
-            .map((note) => `<dt>${esc(note.key)}</dt><dd>${note.value}</dd>`)
-            .join("\n          ")}
-        </dl>`
-            : ""
-        }
+        <dl class="work__spec">
+          ${rows.map(([label, value]) => `<dt>${esc(label)}</dt><dd>${value}</dd>`).join("\n          ")}
+        </dl>
       </article>`;
 }
 
