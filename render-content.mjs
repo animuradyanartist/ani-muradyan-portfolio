@@ -55,12 +55,18 @@ export function artworksHtml(content) {
         </div>${roomBlock}
         <div class="series__label">
           <span class="series__no">${pad(index + 1)}</span>
-          <h3 class="script-heading script-heading--sm reveal">${esc(artwork.title)}</h3>
-          <p class="series__meta reveal">${esc(artworkMeta(artwork))}</p>
+          <div class="series__naming">
+            <h3 class="script-heading script-heading--sm reveal">${esc(artwork.title)}</h3>
+            <p class="series__meta reveal">${esc(artworkMeta(artwork))}</p>
+            <p class="series__offer reveal">
+              <span class="status status--${esc(artwork.availability)}">${esc(labelOf(AVAILABILITY, artwork.availability))}</span>
+              ${artwork.price ? `<span class="series__price">€${Number(artwork.price).toLocaleString("en-GB")}</span>` : ""}
+            </p>
+          </div>
         </div>
-        <div class="series__info reveal">
-          <span class="status status--${esc(artwork.availability)}">${esc(labelOf(AVAILABILITY, artwork.availability))}</span>
-          ${artwork.price ? `<span class="series__price">€${Number(artwork.price).toLocaleString("en-GB")}</span>` : ""}
+        ${
+          artwork.currentLocation || artwork.exhibitionHistory?.length
+            ? `<div class="series__info reveal">
           ${artwork.currentLocation ? `<span class="series__where">${esc(artwork.currentLocation)}</span>` : ""}
           ${
             artwork.exhibitionHistory?.length
@@ -70,7 +76,9 @@ export function artworksHtml(content) {
           </div>`
               : ""
           }
-        </div>
+        </div>`
+            : ""
+        }
       </article>`;
     })
     .join("\n");
@@ -166,6 +174,7 @@ export function categoryWorksHtml(content, page = {}) {
  */
 export const REGIONS = {
   artworks: artworksHtml,
+  "all-works": artworksHtml,
   exhibitions: exhibitionsHtml,
   categories: categoriesHtml,
   contact: contactHtml,

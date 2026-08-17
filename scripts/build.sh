@@ -23,7 +23,7 @@ cp "$ROOT/index.html" "$ROOT/styles.css" "$ROOT/script.js" "$OUT/"
 cp "$ROOT/hydrate.js" "$ROOT/content-schema.mjs" "$ROOT/render-content.mjs" "$OUT/"
 cp -R "$ROOT/admin" "$OUT/admin"
 # Category pages and the gallery-facing /commercial page.
-cp -R "$ROOT/figurative" "$ROOT/landscape" "$ROOT/commercial" "$OUT/"
+cp -R "$ROOT/figurative" "$ROOT/landscape" "$ROOT/artworks" "$ROOT/commercial" "$OUT/"
 cp -R "$ROOT/assets" "$OUT/assets"
 
 # Fill the <!-- content:* --> regions with the committed content so the

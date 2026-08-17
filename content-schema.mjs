@@ -318,9 +318,9 @@ export function dimensionsLabel(artwork) {
   return `${artwork.widthCm} × ${artwork.heightCm} cm`;
 }
 
-/** "Oil on canvas · 80 × 90 cm · 2026" — exactly what the page shows today. */
+/** "2026 · Oil on canvas · 80 × 90 cm" — the line under every artwork title. */
 export function artworkMeta(artwork) {
-  return [artwork.medium, dimensionsLabel(artwork), artwork.year].filter(Boolean).join(" · ");
+  return [artwork.year, artwork.medium, dimensionsLabel(artwork)].filter(Boolean).join(" · ");
 }
 
 /**
