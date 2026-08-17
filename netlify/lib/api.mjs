@@ -103,7 +103,9 @@ export async function handleApi(req) {
 
   if (path === "/api/content" && method === "GET") {
     const content = await readContent();
-    return json(200, publicContent(content), { "cache-control": "public, max-age=30" });
+    // Not cached: a save in the admin has to show on the site immediately, and
+    // this response is small. (The images it points at are still cached hard.)
+    return json(200, publicContent(content), { "cache-control": "no-store" });
   }
 
   // The gallery-facing package that backs /commercial. Public, because the page
